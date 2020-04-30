@@ -1,0 +1,116 @@
+<mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" state="alumno">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Ingresá un alumno</ng-template>
+            <ng-template matStepperIcon="alumno">
+                <mat-icon>face</mat-icon>
+            </ng-template>
+            <mat-form-field style="margin-left:20px; width:250px;">
+                <mat-label>Alumno</mat-label>
+                <input matInput placeholder="Ingrese un dni" [formControl]="formCtrlAlu" [matAutocomplete]="autoAlu" required>
+                <mat-autocomplete #autoAlu="matAutocomplete" [displayWith]="fcionMostrarAlu"
+                    (optionSelected)="updateAluSelect($event.option.value)">
+                    <mat-option *ngFor="let alumno of alumnosFiltrados | async" [value]="alumno">
+                        {{alumno.dni}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" state="libro">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Seleccioná un libro</ng-template>
+            <ng-template matStepperIcon="libro">
+                <mat-icon>library_books</mat-icon>
+            </ng-template>
+            <mat-form-field style="margin-left:20px; width:250px;">
+                <mat-label>Libro</mat-label>
+                <input matInput placeholder="Ingrese un código" [formControl]="formCtrlLib" [matAutocomplete]="autoLib" required>
+                <mat-autocomplete #autoLib="matAutocomplete" [displayWith]="fcionMostrarLib"
+                    (optionSelected)="updateLibSelect($event.option.value)">
+                    <mat-option *ngFor="let libro of librosFiltrados | async" [value]="libro">
+                        {{libro.codigo}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Voler</button>
+                <button mat-button matStepperNext  (click)="solicitudConfirmacion()">Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step state="listo">
+        <ng-template matStepLabel>Confirmación</ng-template>
+        <ng-template matStepperIcon="listo">
+            <mat-icon>check</mat-icon>
+        </ng-template>
+        <p>Sólo falta que confirmes el préstamo!</p>
+        <div>
+            <button mat-button (click)="stepper.reset()">Nuevo préstmo</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>
+
+<div style="display: flex; justify-content: left;">
+
+    <div style="display: inline-block;">
+        <mat-card class="example-card" *ngIf=ocultarTarjetaAlu>
+            <mat-card-header >
+                <mat-icon mat-card-avatar>face</mat-icon>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title>{{alumnoSelect.apellidos}}</mat-card-title>
+                <mat-card-subtitle>{{alumnoSelect.nombres}}</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+            <br />
+            <mat-card-content>
+                <h3 class="mat-h3">Legajo: {{alumnoSelect.legajo}}</h3>
+                <h3 class="mat-h3">Carrera: {{alumnoSelect.carrera}}</h3>
+                <h3 class="mat-h3">Correo: {{alumnoSelect.correo}}</h3>
+                <h3 class="mat-h3">Teléfono: {{alumnoSelect.telefono}}</h3>
+            </mat-card-content>
+            <br />
+        </mat-card>
+    </div>
+    
+    <div style="display: inline-block;">
+        <mat-card class="example-card" *ngIf=ocultarTarjetaLib>
+            <mat-card-header>
+                <mat-icon mat-card-avatar>library_books</mat-icon>
+                <mat-card-title>{{libroSelect.titulo}}</mat-card-title>
+                <mat-card-subtitle>{{libroSelect.autor}}</mat-card-subtitle>
+            </mat-card-header>
+            <br />
+            <mat-card-content>
+                <h3 class="mat-h3">Editorial: {{libroSelect.editorial}}</h3>
+                <h3 class="mat-h3">Original: {{libroSelect.original}}</h3>
+                <h3 class="mat-h3">N° Ejemplares: {{libroSelect.numEjemplares}}</h3>
+                <h3 class="mat-h3">Ejemplares Disp: {{libroSelect.ejemplaresDisp}}</h3>
+            </mat-card-content>
+            <br />
+        </mat-card>
+    </div>
+
+    <div style="display: inline-block;">
+        <mat-card class="example-card" *ngIf=ocultarTarjetaOk>
+            <mat-card-header>
+                <mat-icon mat-card-avatar>check</mat-icon>
+                <mat-card-title>Confirmación</mat-card-title>
+                <mat-card-subtitle>Confirmá el préstamo</mat-card-subtitle>
+            </mat-card-header>
+            <br />
+            <mat-card-content>
+                <h3 class="mat-h3">Fecha de préstamo: {{prestamo.fechaPrestamo | date:'dd-MM-yyyy'}}</h3>
+                <h3 class="mat-h3">Fecha de devolución: {{prestamo.fechaMaxDevolucion | date:'dd-MM-yyyy'}}</h3>
+                <br />
+            </mat-card-content>
+            <mat-card-actions align="center">
+                <button mat-flat-button color="primary" (click)="realizarPrestamo()">Prestar</button>
+           </mat-card-actions>
+           <br />
+        </mat-card>
+    </div>
+</div>

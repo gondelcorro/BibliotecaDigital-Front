@@ -1,0 +1,29 @@
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Titulo" [(ngModel)]="libro.titulo">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Autor" [(ngModel)]="libro.autor">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Editorial" [(ngModel)]="libro.editorial">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="ICBN" [(ngModel)]="libro.icbn">
+  </mat-form-field>
+  <section class="example-section">
+    <mat-checkbox class="example-margin" [(ngModel)]="libro.original">Original</mat-checkbox>
+  </section>
+  <mat-form-field>
+    <input matInput placeholder="Código" [(ngModel)]="libro.codigo">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="N° Ejemplares" [(ngModel)]="libro.numEjemplares">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Año" [(ngModel)]="libro.anio">
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+&nbsp;
+<button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>

@@ -1,0 +1,63 @@
+<mat-form-field>
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="aplicarFiltro($event.target.value)" placeholder="Ingresar libro">
+</mat-form-field>
+
+
+<table mat-table [dataSource]="listaLibros" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Titulo">
+        <th mat-header-cell *matHeaderCellDef> Titulo</th>
+        <td mat-cell *matCellDef="let libro"> {{libro.titulo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Autor">
+        <th mat-header-cell *matHeaderCellDef> Autor </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.autor}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Editorial">
+        <th mat-header-cell *matHeaderCellDef> Editorial </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.editorial}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ICBN">
+        <th mat-header-cell *matHeaderCellDef> ICBN </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.icbn}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Codigo">
+        <th mat-header-cell *matHeaderCellDef> Codigo </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.codigo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="NumEjemplares">
+        <th mat-header-cell *matHeaderCellDef> N° Ejemplares </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.numEjemplares}} </td>
+    </ng-container>
+    <ng-container matColumnDef="EjemplaresDisp">
+        <th mat-header-cell *matHeaderCellDef> Ejemplares Disp. </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.ejemplaresDisp}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Anio">
+        <th mat-header-cell *matHeaderCellDef> Año </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.anio}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Original">
+        <th mat-header-cell *matHeaderCellDef> Original </th>
+        <td mat-cell *matCellDef="let libro"> {{libro.original}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let libro">
+            <button mat-button color="accent" (click)="abrirModal(libro)">Editar</button>
+            <button mat-button color="warn" (click)="eliminar(libro)" style="cursor: pointer">Eliminar</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<br />
+
+<!--DE TIPO MAT-FAV SIGNIFICA BOTON CIRCULAR Y create ES EL ICONO-->
+<button mat-fab color="primary" style="position : fixed; right: 3%; bottom : 5%;"(click)="abrirModal(libro)">
+    <mat-icon>library_add</mat-icon>
+</button>
+
