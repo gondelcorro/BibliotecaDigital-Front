@@ -7,11 +7,10 @@ import { Alumno } from './../../_model/alumno';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Libro } from 'src/app/_model/libro';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-prestamo',
@@ -38,6 +37,8 @@ export class PrestamoComponent implements OnInit {
   ocultarTarjetaLib: boolean = false;
   ocultarTarjetaOk: boolean = false;
   prestamo: Prestamo;
+  listaPrestamos: Prestamo[] = [];
+
 
   constructor(private _formBuilder: FormBuilder, private alumnoService: AlumnoService, private libroService: LibroService
     , private snackBar: MatSnackBar, private prestamoService: PrestamoService) { }
@@ -102,6 +103,12 @@ export class PrestamoComponent implements OnInit {
     if (this.alumnoSelect != null) {
       this.ocultarTarjetaAlu = true;
     }
+    //Al seleccionar el alumno obtengo su lista de prestamos
+    //Lo hago aqui para ya tener disponible la lista al momento de realizar el prestamo
+    //Acordarse q la un subscribe es asincrono y demora en act la data, por eso yo ya tengo de antemano mi lista
+    this.prestamoService.prestamosPorAlumno(this.alumnoSelect.idAlumno).subscribe(data => {
+      this.listaPrestamos = data;
+    });
   }
 
   updateLibSelect(libSelect: Libro) {
@@ -127,18 +134,54 @@ export class PrestamoComponent implements OnInit {
     this.prestamo.libro = libro;
     this.prestamo.alumno = alumno;
     this.prestamo.estadoPrestamo = EstadoPrestamo.PRESTADO
-    this.prestamoService.registrar(this.prestamo).subscribe(data => {
-      if (data != null) {
-        this.snackBar.open("Se registró el prestamo correctamente", "Aviso", { duration: 2000 });
-        //PARA Q TENGA EFECTO DE PROCESAMIENTO, SINO SE LIMPIA MUY RAPIDO
-        setTimeout(() => {
-          //refrescar la pantalla para q vuelva a inicializar todas las variables
-          window.location.reload();
-        }, 1000);
-      } else {
-        this.snackBar.open("Error al registrar el prestamo", "Aviso", { duration: 2000 });
-      }
-    });
+    if (this._validarEjemplaresDisponibles() && this._validarAlumnoSinDeudas() && this._validarNumMaxDePrestamos()) {
+      this.prestamoService.registrar(this.prestamo).subscribe(data => {
+        if (data != null) {
+          this.snackBar.open("Se registró el prestamo correctamente", "Aviso", { duration: 3000 });
+          //PARA Q TENGA EFECTO DE PROCESAMIENTO, SINO SE LIMPIA MUY RAPIDO
+          setTimeout(() => {
+            //refrescar la pantalla para q vuelva a inicializar todas las variables
+            window.location.reload();
+          }, 1000);
+        } else {
+          this.snackBar.open("Error al registrar el prestamo", "Aviso", { duration: 2000 });
+        }
+      });
+    } else {
 
+    }
   }
+
+  _validarEjemplaresDisponibles(): boolean {
+    if (this.libroSelect.ejemplaresDisp > 0) {
+      return true;
+    } else {
+      this.snackBar.open("El libro no tiene ejemplares disponibles", "Aviso", { duration: 3000 });
+      return false
+    }
+  }
+
+  _validarAlumnoSinDeudas(): boolean {
+      if (this.listaPrestamos != null) {
+        let prestamo = this.listaPrestamos.find(alu => alu.estadoPrestamo == EstadoPrestamo.VENCIDO)
+        if (prestamo == null || prestamo == undefined) {
+          return true;
+        } else {
+          this.snackBar.open("El alumno tiene préstamos vencidos", "Aviso", { duration: 3000 });
+          return false;
+        }
+      } else {//El alumno tvia no tiene ningun prestamo
+        return true;
+      }
+  }
+
+  _validarNumMaxDePrestamos(): boolean {
+    if (this.listaPrestamos != null && this.listaPrestamos.length >= 3) {
+      this.snackBar.open("El alumno tiene el numero máx. de libros prestados permitido", "Aviso", { duration: 3000 });
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }

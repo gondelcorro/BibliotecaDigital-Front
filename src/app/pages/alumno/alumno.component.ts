@@ -1,3 +1,5 @@
+import { PrestamoService } from './../../_service/prestamo.service';
+import { Prestamo } from './../../_model/prestamo';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlumnoService } from './../../_service/alumno.service';
@@ -6,6 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Carrera } from 'src/app/_model/carrera';
+import { EstadoPrestamo } from 'src/app/_model/estadoPrestamo';
 
 @Component({
   selector: 'app-alumno',
@@ -22,8 +25,11 @@ export class AlumnoComponent implements OnInit {
   alumnoSelect : Alumno;
   carreraEnum = Carrera;
   carreraOpciones : string[] = [];
+  prestados : Prestamo[] = [];
+  devueltos : Prestamo[] = [];
+  vencidos : Prestamo[] = [];
 
-  constructor(private alumnoService: AlumnoService, private snackBar: MatSnackBar) {
+  constructor(private alumnoService: AlumnoService, private snackBar: MatSnackBar, private PrestamoService : PrestamoService) {
     //INSTANCIO EL FORMULARIO (los nombres deben coincidir con el definido para cada campo en el formControlName del html)
     this.formAlumno = new FormGroup({
       'idAlumno' : new FormControl(0),
@@ -142,4 +148,22 @@ export class AlumnoComponent implements OnInit {
     });
   }
 
+  cargarDetallePrestamos(aluSelect: Alumno){
+    this.alumnoSelect = aluSelect;
+    this.PrestamoService.prestamosPorAlumno(this.alumnoSelect.idAlumno).subscribe(data =>{
+      if(data != null){
+        data.forEach(prestados =>{
+          if(prestados.estadoPrestamo == EstadoPrestamo.PRESTADO){
+            this.prestados.push(prestados)
+          }
+          if(prestados.estadoPrestamo == EstadoPrestamo.DEVUELTO){
+            this.devueltos.push(prestados)
+          }
+          if(prestados.estadoPrestamo == EstadoPrestamo.VENCIDO){
+            this.vencidos.push(prestados)
+          }
+        });
+      }
+    });
+  }
 }

@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Prestamo } from './../_model/prestamo';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,6 +10,7 @@ import { HOST } from '../_shared/constants';
 export class PrestamoService {
 
   url : string = `${HOST}/prestamo`;
+  prestamoCambio = new Subject<Prestamo[]>();
 
   constructor(private http : HttpClient) { }
 
@@ -30,5 +32,9 @@ export class PrestamoService {
 
   obtener(idPrestamo : number){
     return this.http.get<Prestamo>(`${this.url}/obtener/${idPrestamo}`);
+  }
+
+  prestamosPorAlumno(idAlumno : number){
+    return this.http.get<Prestamo[]>(`${this.url}/prestamosPorAlumno/${idAlumno}`);
   }
 }

@@ -17,7 +17,7 @@ import { PrestamoComponent } from './pages/prestamo/prestamo.component';
     AlumnoComponent,
     LibroComponent,
     ModalComponent,
-    PrestamoComponent,
+    PrestamoComponent
   ],
   imports: [
     BrowserModule,
