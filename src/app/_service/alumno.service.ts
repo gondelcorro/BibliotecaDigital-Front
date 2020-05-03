@@ -23,7 +23,7 @@ export class AlumnoService {
   }
 
   editar(alumno : Alumno){
-    return this.http.put<Alumno>(`${this.url}/editar`, alumno);
+    return this.http.put<number>(`${this.url}/editar`, alumno);
   }
 
   listar(){

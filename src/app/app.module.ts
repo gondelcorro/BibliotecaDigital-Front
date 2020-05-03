@@ -10,6 +10,7 @@ import { AlumnoComponent } from './pages/alumno/alumno.component';
 import { LibroComponent } from './pages/libro/libro.component';
 import { ModalComponent } from './pages/libro/modal/modal.component';
 import { PrestamoComponent } from './pages/prestamo/prestamo.component';
+import { DevolucionComponent } from './pages/devolucion/devolucion.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PrestamoComponent } from './pages/prestamo/prestamo.component';
     AlumnoComponent,
     LibroComponent,
     ModalComponent,
-    PrestamoComponent
+    PrestamoComponent,
+    DevolucionComponent
   ],
   imports: [
     BrowserModule,

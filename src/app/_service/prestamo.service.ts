@@ -23,7 +23,7 @@ export class PrestamoService {
   }
 
   editar(prestamo : Prestamo){
-    return this.http.put<Prestamo>(`${this.url}/editar`, prestamo);
+    return this.http.put<number>(`${this.url}/editar`, prestamo);
   }
 
   listar(){

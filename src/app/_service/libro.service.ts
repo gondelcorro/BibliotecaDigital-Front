@@ -23,7 +23,7 @@ export class LibroService {
   }
 
   editar(libro : Libro){
-    return this.http.put<Libro>(`${this.url}/editar`, libro);
+    return this.http.put<number>(`${this.url}/editar`, libro);
   }
 
   listar(){

@@ -34,8 +34,8 @@ export class ModalComponent implements OnInit {
 
   operar() {
     if(this.libro != null && this.libro.idLibro > 0){
-      this.service.editar(this.libro).subscribe(data => {
-        if (data != null) {
+      this.service.editar(this.libro).subscribe(rpta => {
+        if (rpta === 1) {
           this.service.listar().subscribe(libros => {
             this.service.libroCambio.next(libros);
             this.snackBar.open("Se editó correctamente", "Aviso", { duration: 3000 });

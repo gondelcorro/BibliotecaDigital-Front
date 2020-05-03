@@ -1,3 +1,4 @@
+import { DevolucionComponent } from './pages/devolucion/devolucion.component';
 import { PrestamoComponent } from './pages/prestamo/prestamo.component';
 import { LibroComponent } from './pages/libro/libro.component';
 import { AlumnoComponent } from './pages/alumno/alumno.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'app', pathMatch: 'full' },
   {path:'alumno', component:AlumnoComponent},
   {path:'libro', component:LibroComponent},
-  {path:'prestamo', component:PrestamoComponent}
+  {path:'prestamo', component:PrestamoComponent},
+  {path:'devolucion', component:DevolucionComponent}
 ];
 
 @NgModule({

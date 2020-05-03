@@ -142,13 +142,16 @@ export class PrestamoComponent implements OnInit {
           setTimeout(() => {
             //refrescar la pantalla para q vuelva a inicializar todas las variables
             window.location.reload();
-          }, 1000);
+          }, 2000);
         } else {
           this.snackBar.open("Error al registrar el prestamo", "Aviso", { duration: 2000 });
         }
       });
     } else {
-
+      setTimeout(() => {
+        //refrescar la pantalla para q vuelva a inicializar todas las variables
+        window.location.reload();
+      }, 3000);
     }
   }
 
@@ -156,7 +159,7 @@ export class PrestamoComponent implements OnInit {
     if (this.libroSelect.ejemplaresDisp > 0) {
       return true;
     } else {
-      this.snackBar.open("El libro no tiene ejemplares disponibles", "Aviso", { duration: 3000 });
+      this.snackBar.open("El libro no tiene ejemplares disponibles", "Aviso", { duration: 5000 });
       return false
     }
   }
@@ -167,7 +170,7 @@ export class PrestamoComponent implements OnInit {
         if (prestamo == null || prestamo == undefined) {
           return true;
         } else {
-          this.snackBar.open("El alumno tiene préstamos vencidos", "Aviso", { duration: 3000 });
+          this.snackBar.open("El alumno tiene préstamos vencidos", "Aviso", { duration: 5000 });
           return false;
         }
       } else {//El alumno tvia no tiene ningun prestamo
@@ -177,7 +180,7 @@ export class PrestamoComponent implements OnInit {
 
   _validarNumMaxDePrestamos(): boolean {
     if (this.listaPrestamos != null && this.listaPrestamos.length >= 3) {
-      this.snackBar.open("El alumno tiene el numero máx. de libros prestados permitido", "Aviso", { duration: 3000 });
+      this.snackBar.open("El alumno tiene el numero máx. de libros prestados permitido", "Aviso", { duration: 5000 });
       return false;
     } else {
       return true;

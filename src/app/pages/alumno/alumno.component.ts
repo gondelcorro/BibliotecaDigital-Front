@@ -85,8 +85,8 @@ export class AlumnoComponent implements OnInit {
     this.alumnoSelect.carrera = this.formAlumno.value['carrera'];
     this.alumnoSelect.correo = this.formAlumno.value['correo'];
     this.alumnoSelect.telefono = this.formAlumno.value['telefono'];
-    this.alumnoService.editar(this.alumnoSelect).subscribe(alu => {
-      if (alu != null) {
+    this.alumnoService.editar(this.alumnoSelect).subscribe(rpta => {
+      if (rpta === 1) {
         this.alumnoService.listar().subscribe(dataAlumnos => {
           this.alumnoService.alumnoCambio.next(dataAlumnos); //Se guarda en el componente reactivo la lista y se actualiza
           this.snackBar.open("Se editó correctamente", "Aviso", { duration: 3000 });

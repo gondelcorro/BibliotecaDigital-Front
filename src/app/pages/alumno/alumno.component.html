@@ -28,7 +28,7 @@
                 </mat-expansion-panel-header>
                 <mat-list>
                     <mat-list-item *ngFor="let libDevuelto of devueltos">
-                        <mat-icon mat-list-icon>note</mat-icon>
+                        <mat-icon mat-list-icon>arrow_right</mat-icon>
                         <div mat-line>{{libDevuelto.libro.titulo}}</div>
                         <div mat-line> {{libDevuelto.fechaDevolcuion | date:'dd-MM-yyyy'}} </div>
                     </mat-list-item>
@@ -42,7 +42,7 @@
                 </mat-expansion-panel-header>
                 <mat-list>
                     <mat-list-item *ngFor="let libVencido of vencidos">
-                        <mat-icon mat-list-icon>note</mat-icon>
+                        <mat-icon mat-list-icon>arrow_right</mat-icon>
                         <div mat-line>{{libVencido.libro.titulo}}</div>
                         <div mat-line> {{libVencido.fechaPrestamo | date:'dd-MM-yyyy'}} </div>
                     </mat-list-item>
