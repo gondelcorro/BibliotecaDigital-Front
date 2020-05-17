@@ -32,8 +32,11 @@ export class ModalComponent implements OnInit {
     this.libro.anio = this.libroSelect.anio;
   }
 
-  operar() {
-    if(this.libro != null && this.libro.idLibro > 0){
+  //la llamada q se hace a los services a traves de http es siempre asincrona
+  //por lo tanto si quiero esperar la resp del service para desp ejecutar otra funcion
+  //antepongo la palabra async en el metodo grl y await + .toPromise en la llamada al service
+  async operar() {
+    if (this.libro != null && this.libro.idLibro > 0) {
       this.service.editar(this.libro).subscribe(rpta => {
         if (rpta === 1) {
           this.service.listar().subscribe(libros => {
@@ -44,18 +47,23 @@ export class ModalComponent implements OnInit {
           this.snackBar.open("No se editó", "Aviso", { duration: 3000 });
         }
       });
-    }else{
+    } else {
       this.libro.ejemplaresDisp = this.libro.numEjemplares
-      this.service.registar(this.libro).subscribe( data => {
-        if(data != null){
-          this.service.listar().subscribe(libros => {
-            this.service.libroCambio.next(libros);
-            this.snackBar.open("Se registró correctamente", "Aviso", { duration: 3000 });
-          });
-        }else{
-          this.snackBar.open("No se registró", "Aviso", {duration : 3000});
-        }
-      });
+      let existe = await this.service.buscarPorCodigo(this.libro.codigo).toPromise();
+      if (existe) {
+        this.snackBar.open("El libro ya está registrado", "Aviso", { duration: 3000 });
+      } else {
+        this.service.registar(this.libro).subscribe(data => {
+          if (data != null) {
+            this.service.listar().subscribe(libros => {
+              this.service.libroCambio.next(libros);
+              this.snackBar.open("Se registró correctamente", "Aviso", { duration: 3000 });
+            });
+          } else {
+            this.snackBar.open("No se registró", "Aviso", { duration: 3000 });
+          }
+        });
+      }
     }
     this.dialogRef.close();
   }

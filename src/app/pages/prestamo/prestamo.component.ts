@@ -137,7 +137,7 @@ export class PrestamoComponent implements OnInit {
     if (this._validarEjemplaresDisponibles() && this._validarAlumnoSinDeudas() && this._validarNumMaxDePrestamos()) {
       this.prestamoService.registrar(this.prestamo).subscribe(data => {
         if (data != null) {
-          this.snackBar.open("Se registró el prestamo correctamente", "Aviso", { duration: 3000 });
+          this.snackBar.open("Se registró el prestamo correctamente", "Aviso", { duration: 2500 });
           //PARA Q TENGA EFECTO DE PROCESAMIENTO, SINO SE LIMPIA MUY RAPIDO
           setTimeout(() => {
             //refrescar la pantalla para q vuelva a inicializar todas las variables
@@ -179,9 +179,19 @@ export class PrestamoComponent implements OnInit {
   }
 
   _validarNumMaxDePrestamos(): boolean {
-    if (this.listaPrestamos != null && this.listaPrestamos.length >= 3) {
-      this.snackBar.open("El alumno tiene el numero máx. de libros prestados permitido", "Aviso", { duration: 5000 });
-      return false;
+    if (this.listaPrestamos != null) {
+      let numMax = 0
+      this.listaPrestamos.forEach(prestamo =>{
+        if(prestamo.estadoPrestamo == EstadoPrestamo.PRESTADO){
+          numMax = numMax +1;
+        }
+      })
+      if(numMax >= 3){
+        this.snackBar.open("El alumno tiene el numero máx. de libros prestados permitido", "Aviso", { duration: 5000 });
+        return false;
+      }else{
+        return true;
+      }
     } else {
       return true;
     }

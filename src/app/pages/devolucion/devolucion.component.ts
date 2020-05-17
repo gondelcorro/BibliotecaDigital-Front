@@ -1,4 +1,3 @@
-import { LibroService } from './../../_service/libro.service';
 import { MatSort } from '@angular/material/sort';
 import { PrestamoService } from './../../_service/prestamo.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,30 +18,28 @@ export class DevolucionComponent implements OnInit {
   displayedColumns: string[] = ['Documento', 'Alumno', 'Libro', 'Fecha de Préstamo', 'Fecha máx. Devolución', 'Fecha Devolucíon', 'Estado', 'Acciones'];
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private prestamoService: PrestamoService, private libroService: LibroService, private snackBar: MatSnackBar) { }
+  constructor(private prestamoService: PrestamoService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.listar();
+  }
 
+  listar(){
     this.prestamoService.listar().subscribe(data => {
-
       this.listaPrestamos = new MatTableDataSource();
-      this.listaPrestamos.data = data;
-      this.listaPrestamos.sort = this.sort;
-
-      //Filtro aplicado solamente a la columna alumno (se sobreescribe el método filterPredicate)
-      //Lo pongo dentro de la suscrpcion xq necesito que primero se cargue listaPrestamos
-      this.listaPrestamos.filterPredicate = (data, filter: string) => {
-        const accumulator = (currentTerm, key) => {
-          return key === 'alumno' ? currentTerm + data.alumno.dni : currentTerm + data[key];
+        this.listaPrestamos.data = data;
+        this.listaPrestamos.sort = this.sort;
+        //Filtro aplicado solamente a la columna alumno (se sobreescribe el método filterPredicate)
+        //Lo pongo dentro de la suscrpcion xq necesito que primero se cargue listaPrestamos
+        this.listaPrestamos.filterPredicate = (data, filter: string) => {
+          const accumulator = (currentTerm, key) => {
+            return key === 'alumno' ? currentTerm + data.alumno.dni : currentTerm + data[key];
+          };
+          const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+          const transformedFilter = filter.trim().toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
         };
-        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-        console.log(accumulator)
-        console.log(dataStr)
-        const transformedFilter = filter.trim().toLowerCase();
-        return dataStr.indexOf(transformedFilter) !== -1;
-      };
     });
-
   }
 
   aplicarFiltro(filterValue: string) {

@@ -48,7 +48,7 @@ export class AlumnoComponent implements OnInit {
   ngOnInit(): void {
     this.listar();
     this.alumnoService.alumnoCambio.subscribe(data => {
-      this.listaAlumnos = data;
+      this.listaAlumnos.data = data;
       this.listaAlumnos = new MatTableDataSource(this.listaAlumnos);
       this.listaAlumnos.sort = this.sort;
     });
@@ -67,10 +67,8 @@ export class AlumnoComponent implements OnInit {
     alumno.telefono = this.formAlumno.value['telefono'];
     this.alumnoService.registrar(alumno).subscribe(alu => {
       if (alu != null) {
-        this.alumnoService.listar().subscribe(dataAlumnos => {
-          this.alumnoService.alumnoCambio.next(dataAlumnos); //Se guarda en el componente reactivo la lista y se actualiza
+        this.listar();
           this.snackBar.open("Se registró correctamente", "Aviso", { duration: 3000 });
-        });
       } else {
         this.snackBar.open("No se registró", "Aviso", { duration: 3000 });
       }
@@ -87,10 +85,7 @@ export class AlumnoComponent implements OnInit {
     this.alumnoSelect.telefono = this.formAlumno.value['telefono'];
     this.alumnoService.editar(this.alumnoSelect).subscribe(rpta => {
       if (rpta === 1) {
-        this.alumnoService.listar().subscribe(dataAlumnos => {
-          this.alumnoService.alumnoCambio.next(dataAlumnos); //Se guarda en el componente reactivo la lista y se actualiza
           this.snackBar.open("Se editó correctamente", "Aviso", { duration: 3000 });
-        });
       } else {
         this.snackBar.open("No se editó", "Aviso", { duration: 3000 });
       }

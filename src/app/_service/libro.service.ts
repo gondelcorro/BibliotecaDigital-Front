@@ -34,4 +34,8 @@ export class LibroService {
     return this.http.get<Libro>(`${this.url}/obtener/${idLibro}`);
   }
 
+  buscarPorCodigo(codigo : string){
+    return this.http.get<boolean>(`${this.url}/buscarPorCodigo/${codigo}`);
+  }
+
 }
