@@ -33,4 +33,8 @@ export class AlumnoService {
   obtener(idAlumno : number){
     return this.http.get<Alumno>(`${this.url}/obtener/${idAlumno}`);
   }
+
+  buscarPorDni(dni : string){
+    return this.http.get<boolean>(`${this.url}/buscarPorDni/${dni}`);
+  }
 }

@@ -54,7 +54,7 @@ export class AlumnoComponent implements OnInit {
     });
   }
 
-  operar(){
+  async operar(){
     if(this.formAlumno.value['idAlumno'] == 0){
     // INSTANCIO UN ALUMNO Y LE SETEO LOS VALORES CON LO DEL FORMULARIO
     let alumno = new Alumno();
@@ -65,14 +65,19 @@ export class AlumnoComponent implements OnInit {
     alumno.carrera = this.formAlumno.value['carrera'];
     alumno.correo = this.formAlumno.value['correo'];
     alumno.telefono = this.formAlumno.value['telefono'];
-    this.alumnoService.registrar(alumno).subscribe(alu => {
-      if (alu != null) {
-        this.listar();
-          this.snackBar.open("Se registró correctamente", "Aviso", { duration: 3000 });
-      } else {
-        this.snackBar.open("No se registró", "Aviso", { duration: 3000 });
-      }
-    });
+    let existe = await this.alumnoService.buscarPorDni(alumno.dni).toPromise();
+    if(existe){
+      this.snackBar.open("El alumno ya está registrado", "Aviso", { duration: 3000 });
+    }else{
+      this.alumnoService.registrar(alumno).subscribe(alu => {
+        if (alu != null) {
+          this.listar();
+            this.snackBar.open("Se registró correctamente", "Aviso", { duration: 3000 });
+        } else {
+          this.snackBar.open("No se registró", "Aviso", { duration: 3000 });
+        }
+      });
+    }
     }else{
       console.log(this.formAlumno.value['idAlumno']);
     // AL ALUMNO SELECCIONADO LE SETEO LOS VALORES CON LOS NUEVOS DATOS DEL FORMULARIO
@@ -144,6 +149,9 @@ export class AlumnoComponent implements OnInit {
   }
 
   cargarDetallePrestamos(aluSelect: Alumno){
+    this.prestados.length = 0;
+    this.devueltos.length = 0;
+    this.vencidos.length = 0;
     this.alumnoSelect = aluSelect;
     this.PrestamoService.prestamosPorAlumno(this.alumnoSelect.idAlumno).subscribe(data =>{
       if(data != null){
