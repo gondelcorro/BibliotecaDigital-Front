@@ -1,9 +1,9 @@
-import { EstadoPrestamo } from './../../_model/estadoPrestamo';
-import { Prestamo } from './../../_model/prestamo';
-import { PrestamoService } from './../../_service/prestamo.service';
-import { LibroService } from './../../_service/libro.service';
-import { AlumnoService } from './../../_service/alumno.service';
-import { Alumno } from './../../_model/alumno';
+import { EstadoPrestamo } from './../../../_model/estadoPrestamo';
+import { PrestamoService } from './../../../_service/prestamo.service';
+import { LibroService } from './../../../_service/libro.service';
+import { AlumnoService } from './../../../_service/alumno.service';
+import { Prestamo } from './../../../_model/prestamo';
+import { Alumno } from './../../../_model/alumno';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';

@@ -1,0 +1,25 @@
+<div style="display: flex; justify-content: center; padding-top: 5%;">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <!-- <mat-icon mat-card-avatar>login</mat-icon>
+            <mat-card-title>Login</mat-card-title> -->
+        </mat-card-header>
+        <!-- <img mat-card-image src="assets/img/logo-fcf.png" alt="Facultad de Ciencias Forestales UNSE"> -->
+        <br />
+        <mat-card-content>
+            <div class="example-container">
+                <div style="text-align: center;">
+                    <p class="mat-h2">Iniciar Sesión</p>
+                </div>
+                <mat-form-field>
+                    <input matInput placeholder="Usuario" [(ngModel)]="usuario" autofocus="true">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Clave" [(ngModel)]="clave">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="iniciarSesion()">iniciar Sesion</button>
+            </div>
+        </mat-card-content>
+        <br />
+    </mat-card>
+</div>

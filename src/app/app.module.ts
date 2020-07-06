@@ -1,3 +1,9 @@
+import { LoginComponent } from './pages/login/login.component';
+import { DevolucionComponent } from './pages/dashboard/devolucion/devolucion.component';
+import { PrestamoComponent } from './pages/dashboard/prestamo/prestamo.component';
+import { ModalComponent } from './pages/dashboard/libro/modal/modal.component';
+import { LibroComponent } from './pages//dashboard/libro/libro.component';
+import { AlumnoComponent } from './pages/dashboard/alumno/alumno.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,11 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { AlumnoComponent } from './pages/alumno/alumno.component';
-import { LibroComponent } from './pages/libro/libro.component';
-import { ModalComponent } from './pages/libro/modal/modal.component';
-import { PrestamoComponent } from './pages/prestamo/prestamo.component';
-import { DevolucionComponent } from './pages/devolucion/devolucion.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { DevolucionComponent } from './pages/devolucion/devolucion.component';
     LibroComponent,
     ModalComponent,
     PrestamoComponent,
-    DevolucionComponent
+    DevolucionComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

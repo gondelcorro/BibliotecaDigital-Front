@@ -1,14 +1,14 @@
-import { PrestamoService } from './../../_service/prestamo.service';
-import { Prestamo } from './../../_model/prestamo';
+import { AlumnoService } from './../../../_service/alumno.service';
+import { Prestamo } from './../../../_model/prestamo';
+import { Alumno } from './../../../_model/alumno';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AlumnoService } from './../../_service/alumno.service';
-import { Alumno } from './../../_model/alumno';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Carrera } from 'src/app/_model/carrera';
 import { EstadoPrestamo } from 'src/app/_model/estadoPrestamo';
+import { PrestamoService } from 'src/app/_service/prestamo.service';
 
 @Component({
   selector: 'app-alumno',

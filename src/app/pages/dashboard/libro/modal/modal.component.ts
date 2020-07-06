@@ -1,5 +1,5 @@
-import { Libro } from './../../../_model/libro';
-import { LibroService } from './../../../_service/libro.service';
+import { LibroService } from './../../../../_service/libro.service';
+import { Libro } from './../../../../_model/libro';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';

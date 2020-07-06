@@ -1,7 +1,7 @@
+import { LibroService } from './../../../_service/libro.service';
+import { Libro } from './../../../_model/libro';
 import { ModalComponent } from './modal/modal.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { LibroService } from './../../_service/libro.service';
-import { Libro } from './../../_model/libro';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';

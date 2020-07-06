@@ -1,7 +1,7 @@
+import { PrestamoService } from './../../../_service/prestamo.service';
+import { Prestamo } from './../../../_model/prestamo';
 import { MatSort } from '@angular/material/sort';
-import { PrestamoService } from './../../_service/prestamo.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Prestamo } from './../../_model/prestamo';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EstadoPrestamo } from 'src/app/_model/estadoPrestamo';
