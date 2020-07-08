@@ -1,3 +1,4 @@
+import { GuardService } from './_service/guard.service';
 import { LoginComponent } from './pages/login/login.component';
 import { LibroComponent } from './pages/dashboard/libro/libro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -11,7 +12,7 @@ const routes: Routes = [
   //Cuando la ruta sea la especificada en el path, redirigime al componente o a una ruta en particular
   {path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, children:[
+  {path: 'dashboard', component: DashboardComponent, canActivate: [GuardService], children:[
     {path:'alumno', component:AlumnoComponent},
     {path:'libro', component:LibroComponent},
     {path:'prestamo', component:PrestamoComponent},
