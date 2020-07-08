@@ -2,6 +2,7 @@ import { CLIENT_ID, CLIENT_SECRET } from './../_shared/constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HOST } from '../_shared/constants';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,9 @@ export class LoginService {
     return this.http.post(this.url, body, {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8').set('Authorization', 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET))
     });
+  }
+
+  logout(){
+
   }
 }

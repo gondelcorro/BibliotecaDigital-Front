@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCardModule} from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import {MatCardModule} from '@angular/material/card';
     MatSelectModule,
     MatStepperModule,
     MatAutocompleteModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
     //AGREGAR EL EXPORTS TB PARA LOS COMP DE ANG MAT SI O SI
     //NO OLVIDAR REGISTRAR ESTE MODULO EN EL APPMODULE
@@ -62,7 +64,8 @@ import {MatCardModule} from '@angular/material/card';
       MatSelectModule,
       MatStepperModule,
       MatAutocompleteModule,
-      MatCardModule
+      MatCardModule,
+      MatMenuModule
     ],
 })
 export class MaterialModule { }
