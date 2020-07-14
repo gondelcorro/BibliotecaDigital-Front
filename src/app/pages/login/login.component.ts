@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
       }
     }, (err) => {
-      if (err.status !== 401) {//ERROR DE CONEXION CON EL BACKEND
-        this.snackBar.open("Error de conexión", "Aviso", { duration: 3000 });
-      }
-      if (err.status === 401 || err.status === 400) {//ERROR DE SEGURIDAD
+      if (err.status == 401) {//ERROR DE SEGURIDAD
         this.snackBar.open("Credenciales incorrectas", "Aviso", { duration: 3000 });
+      }
+      else {//ERROR DE CONEXION CON EL BACKEND
+        this.snackBar.open("Error de conexión", "Aviso", { duration: 3000 });
       }
     });
   }
