@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
         let token = JSON.stringify(data); //CONVIERTO LA RESP JSON EN UN STRING
         sessionStorage.setItem(TOKEN_NAME, token); //LO ALMACENO EN EL sessionStorage
         let tk = JSON.parse(sessionStorage.getItem(TOKEN_NAME));
-        console.log(tk.access_token);
         //const decodedToken = decode(tk.access_token); DECODIFICO EL access_token 
         //let rol = decodedToken.authorities[0];  EXTRAIGO EL ROL
         this.router.navigate(['dashboard']);

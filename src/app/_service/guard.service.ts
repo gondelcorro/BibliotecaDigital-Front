@@ -14,13 +14,12 @@ export class GuardService implements CanActivate{
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    let estaLogeado = this.loginService.isLoggedIn;
-    let tokenExpirado = this.loginService.isTokenExpired;
-
+    let estaLogeado = this.loginService.isLoggedIn();
+    let tokenExpirado = this.loginService.isTokenExpired();
     if(estaLogeado && !tokenExpirado){
       return true;
     }else{
-      this.loginService.logout;
+      this.loginService.logout();
       return false;
     }
   }

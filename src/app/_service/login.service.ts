@@ -25,7 +25,7 @@ export class LoginService {
 
   logout(){
     sessionStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 
   isLoggedIn(){
@@ -35,7 +35,7 @@ export class LoginService {
 
   public isTokenExpired(): boolean {
     const token = localStorage.getItem(TOKEN_NAME);
-    return this.jwtHelper.isTokenExpired(token); //
+    return !this.jwtHelper.isTokenExpired(token); 
   }
 
 }
